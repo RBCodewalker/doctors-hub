@@ -6,53 +6,54 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { Button } from "@/components/ui/button";
-import { Doctor } from "@/model";
+import { Doctor } from "@/entities/doctor";
 import { useState } from "react";
-import { addDoctor } from "@/api/api";
+import { addDoctor } from "@/interfaces/doctor_add";
 
 export function AddDoctor() {
-
   const [doctor, setDoctor] = useState<Doctor>({
-    id: 100,
-    name: "Doctor",
-    street: "Doctor",
-    zip: "Doctor",
-    city: "Doctor",
-    phone: "Doctor",
-    email: "Doctor",
-    createdAt: "Doctor",
-    updatedAt: "Doctor",
-    state: "Doctor",
+    id: 1523,
+    name: "Do6a78 the Ex5lorer",
+    street: "Chi65e71",
+    zip: "456751 ",
+    city: "O65a7ruck1",
+    phone: "+47456559651",
+    email: "do6ra575mail.com",
+    createdAt: "63/75/2023",
+    updatedAt: "63/52/2023",
+    state: "6o57ia",
   });
 
   const handleChange = (event: any) => {
-    const { name, value } = event.target;
-    setDoctor( (prev) => ({
+    setDoctor((prev) => ({
       ...prev,
-      [name]: value
-    }))
+      [event.target.id]: event.target.value,
+    }));
+  };
 
-  }
-
+  const handleSubmit = async (event: any) => {
+    event.preventDefault();
+    addDoctor(doctor);
+  };
 
   return (
     <Popover>
       <PopoverTrigger>Add</PopoverTrigger>
       <PopoverContent>
-        <form action={() => { addDoctor(doctor);}}>
+        <form onSubmit={handleSubmit}>
           <label>
             id
-            <input value={doctor?.id} onChange={handleChange} />
+            <input id="id" value={doctor?.id} onChange={handleChange} />
           </label>
 
           <label>
             name
-            <input value={doctor?.name} onChange={handleChange} />
+            <input id="name" value={doctor?.name} onChange={handleChange} />
           </label>
 
           <label>
             phone
-            <input value={doctor?.phone} onChange={handleChange} />
+            <input id="phone" value={doctor?.phone} onChange={handleChange} />
           </label>
           <Button type="submit"> Submit </Button>
         </form>

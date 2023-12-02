@@ -1,5 +1,5 @@
 "use client";
-import { Doctor } from "@/model";
+import { Doctor } from "@/entities/doctor";
 import { useInView } from "react-intersection-observer";
 
 import {
@@ -11,8 +11,12 @@ import {
   CardFooter,
 } from "@/components/ui/card";
 import { useEffect, useState } from "react";
-import { fetchData } from "@/api/api";
+import { getDoctors } from "@/interfaces/doctor_get";
 import { Loader } from "./ui/loader";
+import { Button, buttonVariants } from "./ui/button";
+
+import { DeleteDoctor } from "./delete-doctors";
+import { UpdateDoctor } from "./update-doctors";
 
 export interface DoctorProps {
   doctors: Doctor[];
@@ -22,36 +26,30 @@ export interface DoctorProps {
 export function Doctors({ ...props }: DoctorProps) {
   const [doctors, setDoctors] = useState<Doctor[]>(props.doctors);
   const [page, setPage] = useState<number>(props.page);
+
   const [isLoaderVisible, setIsLoaderVisible] = useState<boolean>(true);
   const [isError, setIsError] = useState<boolean>(false);
 
   const { ref, inView } = useInView();
 
   const loadMoreDoctors = async () => {
-    const newDoctors = await fetchData(page).catch((_: any) => {
-      setIsError(true);
-    });;
+    try {
+      const newDoctors = await getDoctors(page);
 
-    if (newDoctors != undefined) {
+      if (newDoctors.length === 0) throw "No new data";
+
       setIsError(false);
       setIsLoaderVisible(true);
-    }
 
-
-    if (newDoctors?.length === 0 || isError || newDoctors == undefined) {
+      setDoctors(doctors.concat(newDoctors ?? []));
+      setPage(page + 1);
+    } catch (err) {
+      setIsError(true);
       setIsLoaderVisible(false);
-      return;
     }
-
-    setDoctors(doctors.concat(newDoctors ?? []));
-    setPage(page + 1);
   };
 
   useEffect(() => {
-    if (doctors) {
-      setDoctors(doctors);
-    }
-
     if (inView) {
       loadMoreDoctors();
     }
@@ -65,13 +63,17 @@ export function Doctors({ ...props }: DoctorProps) {
             <CardFooter className="text-center flex flex-col p-4">
               <CardTitle className="my-2">{doctor.name}</CardTitle>
               <CardDescription>{doctor.phone}</CardDescription>
+              <div className="flex gap-4">
+                <UpdateDoctor doctor={doctor} />
+                <DeleteDoctor id={doctor.id} onDelete={loadMoreDoctors} />
+              </div>
             </CardFooter>
           </Card>
         ))
       ) : (
-        <div className="text-xl font-bold">
+        <div className="flex justify-between items-center text-xl font-bold">
           <div> Error occured please try again. </div>
-          <button onClick={loadMoreDoctors}> Retry </button>
+          <Button onClick={loadMoreDoctors}> Retry </Button>
         </div>
       )}
 
