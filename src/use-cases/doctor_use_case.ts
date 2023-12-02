@@ -17,7 +17,9 @@ class DoctorUseCase {
 
   async fetchData(page: number): Promise<Doctor[]> {
     try {
-      const response = await fetch(`${this.apiUrl}?page=${page}`);
+      const response = await fetch(`${this.apiUrl}?page=${page}`, {
+        cache: "no-store"
+      });
 
       if (response.ok && response.status === 200) {
         const data = await response.json();
@@ -33,6 +35,7 @@ class DoctorUseCase {
     try {
       const response = await fetch(this.apiUrl, {
         method: "POST",
+        cache: "no-store",
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
@@ -41,6 +44,10 @@ class DoctorUseCase {
       });
 
       if (response.ok || response.status === 201) {
+        setTimeout(() => {
+          // Clear cache and reload
+          window.location.reload();
+        }, 2000);
         return;
       }
       throw response.status;
@@ -53,12 +60,14 @@ class DoctorUseCase {
     try {
       const response = await fetch(`${this.apiUrl}/${id}`, {
         method: "DELETE",
+        cache: "no-store",
         headers: {
           Accept: "*/*",
         },
       });
 
       if (response.status === 200) {
+          // window.location.reload();
         return true;
       } else {
         return false;

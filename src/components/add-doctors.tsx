@@ -12,16 +12,16 @@ import { addDoctor } from "@/interfaces/doctor_add";
 
 export function AddDoctor() {
   const [doctor, setDoctor] = useState<Doctor>({
-    id: 1523,
-    name: "Do6a78 the Ex5lorer",
-    street: "Chi65e71",
-    zip: "456751 ",
-    city: "O65a7ruck1",
-    phone: "+47456559651",
-    email: "do6ra575mail.com",
-    createdAt: "63/75/2023",
-    updatedAt: "63/52/2023",
-    state: "6o57ia",
+    id: 0,
+    name: "",
+    street: "",
+    zip: "",
+    city: "",
+    phone: "",
+    email: "",
+    createdAt: "",
+    updatedAt: "",
+    state: "",
   });
 
   const handleChange = (event: any) => {
@@ -42,18 +42,43 @@ export function AddDoctor() {
       <PopoverContent>
         <form onSubmit={handleSubmit}>
           <label>
-            id
+            <h2>id</h2>
             <input id="id" value={doctor?.id} onChange={handleChange} />
           </label>
 
           <label>
-            name
+            <h2>name</h2>
             <input id="name" value={doctor?.name} onChange={handleChange} />
           </label>
 
           <label>
-            phone
+            <h2>street</h2>
+            <input id="street" value={doctor?.street} onChange={handleChange} />
+          </label>
+
+          <label>
+            <h2>city</h2>
+            <input id="city" value={doctor?.city} onChange={handleChange} />
+          </label>
+
+          <label>
+            <h2>state</h2>
+            <input id="state" value={doctor?.state} onChange={handleChange} />
+          </label>
+
+          <label>
+            <h2>zip</h2>
+            <input id="zip" value={doctor?.zip} onChange={handleChange} />
+          </label>
+
+          <label>
+            <h2>phone</h2>
             <input id="phone" value={doctor?.phone} onChange={handleChange} />
+          </label>
+
+          <label>
+            <h2>email</h2>
+            <input id="email" value={doctor?.email} onChange={handleChange} />
           </label>
           <Button type="submit"> Submit </Button>
         </form>
