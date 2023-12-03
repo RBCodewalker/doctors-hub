@@ -39,5 +39,51 @@ In this project, the data of the doctors was fetched using **server actions** in
 ## File structure
 
 ```
-
+.
+├── README.md
+├── components.json
+├── file-structure.txt
+├── next.config.js
+├── package-lock.json
+├── package.json
+├── postcss.config.js
+├── public
+│   └── logo.svg
+├── src
+│   ├── api
+│   │   └── api.ts
+│   ├── app
+│   │   ├── favicon.ico
+│   │   ├── global.css
+│   │   ├── layout.tsx
+│   │   └── page.tsx
+│   ├── components
+│   │   ├── add-doctors.tsx
+│   │   ├── delete-doctors.tsx
+│   │   ├── doctors.tsx
+│   │   ├── ui
+│   │   │   ├── alert-dialog.tsx
+│   │   │   ├── button.tsx
+│   │   │   ├── card.tsx
+│   │   │   ├── loader.tsx
+│   │   │   ├── popover.tsx
+│   │   │   ├── toast.tsx
+│   │   │   ├── toaster.tsx
+│   │   │   └── use-toast.ts
+│   │   └── update-doctors.tsx
+│   ├── entities
+│   │   └── doctor.ts
+│   ├── interfaces
+│   │   ├── doctor-add.ts
+│   │   ├── doctor-delete.ts
+│   │   ├── doctor-get-update.ts
+│   │   ├── doctor-get.ts
+│   │   └── doctor-update.ts
+│   ├── lib
+│   │   └── utils.ts
+│   └── use-cases
+│       └── doctor-use-case.ts
+├── tailwind.config.js
+├── tailwind.config.ts
+└── tsconfig.json
 ```
