@@ -3,8 +3,6 @@ import Image from "next/image";
 import { Doctors } from "@/components/doctors";
 import { Doctor } from "@/entities/doctor";
 
-export const runtime = "edge";
-
 const Page = async () => {
   const initPage = 1; // Initial page to load from API
 
