@@ -12,7 +12,7 @@ import { addDoctor } from "@/interfaces/doctor-add";
 import { Check } from "lucide-react";
 import { useToast } from "./ui/use-toast";
 
-export function AddDoctor({ onAddDoctor }: { onAddDoctor: Function }) {
+export function AddDoctor() {
   // An instance of an empty Doctor
   const emptyDoctor: Doctor = {
     id: NaN,
@@ -45,8 +45,6 @@ export function AddDoctor({ onAddDoctor }: { onAddDoctor: Function }) {
       const res = await addDoctor(doctor);
 
       if (res) {
-        // onAddDoctor([res]);
-
         setPopoverOpenOff();
 
         toast({

@@ -72,6 +72,7 @@ export function UpdateDoctor({
             onPointerDownOutside={setPopoverOpenOff}
             onEscapeKeyDown={setPopoverOpenOff}
             className="z-30"
+            align="start"
           >
             <form onSubmit={handleSubmit} className="flex flex-col gap-2">
               {/* 

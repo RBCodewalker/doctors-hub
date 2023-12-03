@@ -41,17 +41,13 @@ export function Doctors({ ...props }: DoctorProps) {
       setIsError(false);
       setIsLoaderVisible(true);
 
-      setDoctors((prevDoctors: Doctor[]) => [...prevDoctors, ...newDoctors]);
+      setDoctors(doctors.concat(newDoctors) ?? []);
 
       setPage(page + 1);
     } catch (err) {
       setIsError(true);
       setIsLoaderVisible(false);
     }
-  };
-
-  const onAddDoctor = (newDoctor: Doctor[]) => {
-    setDoctors((prevDoctors: Doctor[]) => [...prevDoctors, ...newDoctor]);
   };
 
   const onDeleteDoctor = (doctorId: number) => {
@@ -79,7 +75,7 @@ export function Doctors({ ...props }: DoctorProps) {
   return (
     <>
       <div className="mx-auto p-0 sm:col-span-2 col-span-1 md:col-span-4">
-        <AddDoctor onAddDoctor={onAddDoctor} />
+        <AddDoctor />
       </div>
       {doctors.length || !isError ? (
         doctors.map((doctor) => (
