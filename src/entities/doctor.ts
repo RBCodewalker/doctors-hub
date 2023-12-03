@@ -7,6 +7,6 @@ export interface Doctor {
   zip: string;
   phone: string;
   email: string;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
 }

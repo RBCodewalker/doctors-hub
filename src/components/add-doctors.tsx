@@ -8,22 +8,29 @@ import {
 import { Button } from "@/components/ui/button";
 import { Doctor } from "@/entities/doctor";
 import { useState } from "react";
-import { addDoctor } from "@/interfaces/doctor_add";
+import { addDoctor } from "@/interfaces/doctor-add";
+import { Check } from "lucide-react";
+import { useToast } from "./ui/use-toast";
 
-export function AddDoctor() {
-  const [doctor, setDoctor] = useState<Doctor>({
-    id: 0,
+export function AddDoctor({ onAddDoctor }: { onAddDoctor: Function }) {
+  // An instance of an empty Doctor
+  const emptyDoctor: Doctor = {
+    id: NaN,
     name: "",
     street: "",
-    zip: "",
     city: "",
+    state: "",
+    zip: "",
     phone: "",
     email: "",
-    createdAt: "",
-    updatedAt: "",
-    state: "",
-  });
+  };
 
+  const [doctor, setDoctor] = useState<Doctor>(emptyDoctor);
+  const [isPopoverOpen, setIsPopoverOpen] = useState(false);
+
+  const { toast } = useToast();
+
+  // Update only changed value
   const handleChange = (event: any) => {
     setDoctor((prev) => ({
       ...prev,
@@ -32,57 +39,100 @@ export function AddDoctor() {
   };
 
   const handleSubmit = async (event: any) => {
-    event.preventDefault();
-    addDoctor(doctor);
+    try {
+      event.preventDefault();
+
+      const res = await addDoctor(doctor);
+
+      if (res) {
+        // onAddDoctor([res]);
+
+        setPopoverOpenOff();
+
+        toast({
+          description: "Added doctor successfully",
+        });
+      }
+    } catch (e: any) {
+      toast({
+        title: "Error adding doctor",
+        description: "Could not add doctor. Error message:" + e,
+      });
+    }
+  };
+
+  const setPopoverOpenOff = () => {
+    setIsPopoverOpen(false);
+  };
+
+  const setPopoverOpenOn = () => {
+    setIsPopoverOpen(true);
   };
 
   return (
-    <Popover>
-      <PopoverTrigger>Add</PopoverTrigger>
-      <PopoverContent>
-        <form onSubmit={handleSubmit}>
-          <label>
-            <h2>id</h2>
-            <input id="id" value={doctor?.id} onChange={handleChange} />
-          </label>
+    <>
+      <Popover open={isPopoverOpen}>
+        <PopoverTrigger
+          onClick={setPopoverOpenOn}
+          className="px-6 py-2 bg-[#22b3a7] text-primary-foreground hover:opacity-90 rounded-md text-sm font-medium transition-colors"
+        >
+          Add Doctor
+        </PopoverTrigger>
 
-          <label>
-            <h2>name</h2>
-            <input id="name" value={doctor?.name} onChange={handleChange} />
-          </label>
+        <PopoverContent
+          onPointerDownOutside={setPopoverOpenOff}
+          onEscapeKeyDown={setPopoverOpenOff}
+          className="z-30"
+        >
+          <form onSubmit={handleSubmit} className="flex flex-col gap-2">
+            {/* 
+                Iterating through each key except for last two elements 
+                (createdAt and updatedAt) and creating a label and input 
+                field for each of the keys 
+              */}
+            {Object.keys(doctor).map((key, i, arr) => {
+              // Check if value is NaN
+              let value = doctor[key as keyof Doctor];
+              let type = "text";
+              let pattern = ".*";
 
-          <label>
-            <h2>street</h2>
-            <input id="street" value={doctor?.street} onChange={handleChange} />
-          </label>
+              // Logic for data validation
+              if (key === "email") {
+                type = "email";
+              } else if (key === "id" || key === "zip") {
+                pattern = "^[0-9]\\d*$";
+              }
+              if (Number.isNaN(value)) {
+                value = "";
+              }
 
-          <label>
-            <h2>city</h2>
-            <input id="city" value={doctor?.city} onChange={handleChange} />
-          </label>
+              if (i + 1 <= arr.length) {
+                return (
+                  <label key={i}>
+                    <div className="capitalize font-bold">{key}</div>
+                    <input
+                      id={key}
+                      value={value}
+                      onChange={handleChange}
+                      type={type}
+                      className="border border-gray-400 rounded-md p-2"
+                      required
+                      pattern={pattern}
+                    />
+                  </label>
+                );
+              }
+            })}
 
-          <label>
-            <h2>state</h2>
-            <input id="state" value={doctor?.state} onChange={handleChange} />
-          </label>
-
-          <label>
-            <h2>zip</h2>
-            <input id="zip" value={doctor?.zip} onChange={handleChange} />
-          </label>
-
-          <label>
-            <h2>phone</h2>
-            <input id="phone" value={doctor?.phone} onChange={handleChange} />
-          </label>
-
-          <label>
-            <h2>email</h2>
-            <input id="email" value={doctor?.email} onChange={handleChange} />
-          </label>
-          <Button type="submit"> Submit </Button>
-        </form>
-      </PopoverContent>
-    </Popover>
+            <Button
+              type="submit"
+              className="self-center bg-green-500 text-white hover:bg-green-400"
+            >
+              <Check />
+            </Button>
+          </form>
+        </PopoverContent>
+      </Popover>
+    </>
   );
 }

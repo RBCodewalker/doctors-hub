@@ -1,6 +1,8 @@
 "use server";
+
 import { Doctor } from "@/entities/doctor";
 
+// DoctorUseCase is a Singleton Class
 class DoctorUseCase {
   private static instance: DoctorUseCase;
   private apiUrl = `https://challenge.digitalepatientenhilfe.de/api/doctors`;
@@ -18,7 +20,7 @@ class DoctorUseCase {
   async fetchData(page: number): Promise<Doctor[]> {
     try {
       const response = await fetch(`${this.apiUrl}?page=${page}`, {
-        cache: "no-store"
+        cache: "no-store",
       });
 
       if (response.ok && response.status === 200) {
@@ -31,7 +33,7 @@ class DoctorUseCase {
     }
   }
 
-  addDoctor = async (doctor: Doctor) => {
+  async addDoctor(doctor: Doctor) {
     try {
       const response = await fetch(this.apiUrl, {
         method: "POST",
@@ -44,17 +46,13 @@ class DoctorUseCase {
       });
 
       if (response.ok || response.status === 201) {
-        setTimeout(() => {
-          // Clear cache and reload
-          window.location.reload();
-        }, 2000);
-        return;
+        return await response.json();
       }
       throw response.status;
     } catch (error) {
       throw error;
     }
-  };
+  }
 
   async deleteDoctor(id: number): Promise<boolean> {
     try {
@@ -66,20 +64,13 @@ class DoctorUseCase {
         },
       });
 
-      if (response.status === 200) {
-          // window.location.reload();
-        return true;
-      } else {
-        return false;
-      }
-
-      // throw new Error("Failed to delete doctor.");
+      return response.status === 200;
     } catch (error) {
       throw new Error("Failed to delete doctor.");
     }
   }
 
-  async updateDoctor(id: number, newDoctor: Doctor): Promise<void> {
+  async updateDoctor(id: number, newDoctor: Doctor): Promise<Doctor> {
     try {
       const response = await fetch(`${this.apiUrl}/${id}`, {
         method: "PUT",
@@ -91,9 +82,10 @@ class DoctorUseCase {
       });
 
       if (response.status === 200) {
-        return;
+        return await response.json();
       }
-      // throw new Error("Failed to update doctor.");
+
+      throw response.status;
     } catch (error) {
       throw new Error("Failed to update doctor.");
     }
