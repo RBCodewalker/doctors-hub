@@ -53,8 +53,9 @@ export function AddDoctor() {
       }
     } catch (e: any) {
       toast({
+        color: "#ff2342",
         title: "Error adding doctor",
-        description: "Could not add doctor. Error message:" + e,
+        description: "" + e,
       });
     }
   };
@@ -84,11 +85,11 @@ export function AddDoctor() {
         >
           <form onSubmit={handleSubmit} className="flex flex-col gap-2">
             {/* 
-                Iterating through each key except for last two elements 
-                (createdAt and updatedAt) and creating a label and input 
+                Iterating through each key except for id,
+                createdAt and updatedAt and creating a label and input 
                 field for each of the keys 
               */}
-            {Object.keys(doctor).map((key, i, arr) => {
+            {Object.keys(doctor).map((key, i) => {
               // Check if value is NaN
               let value = doctor[key as keyof Doctor];
               let type = "text";
@@ -102,9 +103,9 @@ export function AddDoctor() {
               }
               if (Number.isNaN(value)) {
                 value = "";
-              }
 
-              if (i + 1 <= arr.length) {
+              }
+              if (!["id","updatedAt", "createdAt"].includes(key)) {
                 return (
                   <label key={i}>
                     <div className="capitalize font-bold">{key}</div>

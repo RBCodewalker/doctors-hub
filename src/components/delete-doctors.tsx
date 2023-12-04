@@ -62,7 +62,7 @@ export function DeleteDoctor({
             <AlertDialogCancel>Cancel</AlertDialogCancel>
 
             <AlertDialogAction className="bg-red-500" onClick={handleDelete}>
-              Continue
+              Delete
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>

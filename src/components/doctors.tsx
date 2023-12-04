@@ -87,7 +87,7 @@ export function Doctors({ ...props }: DoctorProps) {
                 {doctor.email}
                 {<br />}
                 {doctor.phone}
-
+                {<br />}
                 {doctor.street}
                 {<br />}
                 {doctor.zip}

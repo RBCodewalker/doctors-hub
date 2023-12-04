@@ -80,7 +80,7 @@ export function UpdateDoctor({
                   (createdAt and updatedAt) and creating a label and input 
                   field for each of the keys 
                 */}
-              {Object.keys(doctorUpdate).map((key, i, arr) => {
+              {Object.keys(doctorUpdate).map((key, i) => {
                 // Check if value is NaN
                 let value = doctorUpdate[key as keyof Doctor];
                 let isReadOnly = false;
@@ -96,7 +96,7 @@ export function UpdateDoctor({
                   value = "";
                 }
 
-                if (i + 2 < arr.length) {
+                if (!["id","updatedAt", "createdAt"].includes(key)) {
                   return (
                     <label key={i}>
                       <div className="capitalize font-bold">{key}</div>
