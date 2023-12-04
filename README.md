@@ -81,47 +81,44 @@ Sends a DELETE request to remove the specified doctor object.
 .
 ├── README.md
 ├── components.json
-├── file-structure.txt
+├── next-env.d.ts
 ├── next.config.js
 ├── package-lock.json
 ├── package.json
 ├── postcss.config.js
 ├── public
-│   └── logo.svg
+│   └── logo.svg
 ├── src
-│   ├── api
-│   │   └── api.ts
-│   ├── app
-│   │   ├── favicon.ico
-│   │   ├── global.css
-│   │   ├── layout.tsx
-│   │   └── page.tsx
-│   ├── components
-│   │   ├── add-doctors.tsx
-│   │   ├── delete-doctors.tsx
-│   │   ├── doctors.tsx
-│   │   ├── ui
-│   │   │   ├── alert-dialog.tsx
-│   │   │   ├── button.tsx
-│   │   │   ├── card.tsx
-│   │   │   ├── loader.tsx
-│   │   │   ├── popover.tsx
-│   │   │   ├── toast.tsx
-│   │   │   ├── toaster.tsx
-│   │   │   └── use-toast.ts
-│   │   └── update-doctors.tsx
-│   ├── entities
-│   │   └── doctor.ts
-│   ├── interfaces
-│   │   ├── doctor-add.ts
-│   │   ├── doctor-delete.ts
-│   │   ├── doctor-get-update.ts
-│   │   ├── doctor-get.ts
-│   │   └── doctor-update.ts
-│   ├── lib
-│   │   └── utils.ts
-│   └── use-cases
-│       └── doctor-use-case.ts
+│   ├── app
+│   │   ├── favicon.ico
+│   │   ├── global.css
+│   │   ├── layout.tsx
+│   │   └── page.tsx
+│   ├── components
+│   │   ├── add-doctors.tsx
+│   │   ├── delete-doctors.tsx
+│   │   ├── doctors.tsx
+│   │   ├── ui
+│   │   │   ├── alert-dialog.tsx
+│   │   │   ├── button.tsx
+│   │   │   ├── card.tsx
+│   │   │   ├── loader.tsx
+│   │   │   ├── popover.tsx
+│   │   │   ├── toast.tsx
+│   │   │   ├── toaster.tsx
+│   │   │   └── use-toast.ts
+│   │   └── update-doctors.tsx
+│   ├── entities
+│   │   └── doctor.ts
+│   ├── interfaces
+│   │   ├── doctor-add.ts
+│   │   ├── doctor-delete.ts
+│   │   ├── doctor-get.ts
+│   │   └── doctor-update.ts
+│   ├── lib
+│   │   └── utils.ts
+│   └── use-cases
+│       └── doctor-use-case.ts
 ├── tailwind.config.js
 ├── tailwind.config.ts
 └── tsconfig.json
