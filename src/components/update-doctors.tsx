@@ -106,6 +106,7 @@ export function UpdateDoctor({
                         value={value}
                         onChange={handleChange}
                         type={type}
+                        required
                         className="border border-gray-400 rounded-md p-2"
                       />
                     </label>
