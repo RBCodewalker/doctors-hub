@@ -1,6 +1,6 @@
 # Doctors Hub
 
-In this project, the data of the doctors was fetched using **server actions** in **NextJS**. The front end of the application is developed using **Next.js** and **TailwindCSS**. RESTful API along with the Doctors API provided by Digitale Patientenhilfe GmbH using fetch requests was used to GET, POST, PUT, DELETE the data. Third-party UI libraries were used for clean and consistent UI. **Clean Architecture** is used for improved code quality, maintainability and scalability.
+In this [project](https://doctors-hub.vercel.app), the data of the doctors was fetched using **server actions** in **NextJS**. The front end of the application is developed using **Next.js** and **TailwindCSS**. RESTful API along with the Doctors API provided by Digitale Patientenhilfe GmbH using fetch requests was used to GET, POST, PUT, and DELETE the data. Third-party UI libraries were used for clean and consistent UI. **Clean Architecture** is used for improved code quality, maintainability and scalability.
 
 ## Table of Contents
 
